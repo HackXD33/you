@@ -11,20 +11,31 @@
 </head>
 <body class="text-gray-100 min-h-screen flex flex-col justify-between">
 
+    <!-- حماية الصفحة من الدخول غير المصرح -->
     <script>
         if (localStorage.getItem('isAdmin') !== 'true') {
             window.location.href = 'login.html';
         }
     </script>
 
-    <header class="border-b border-gray-800 bg-[#141822] px-6 py-4 flex justify-between items-center">
+    <!-- شريط التنقل المحدث مع أزرار الخروج والعودة -->
+    <header class="border-b border-gray-800 bg-[#141822] px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
         <div class="flex items-center space-x-reverse space-x-3">
             <i class="fa-solid fa-folder-plus text-red-600 text-xl"></i>
             <span class="text-lg font-black text-white">منظومة الإدارة والمستندات</span>
         </div>
-        <button id="logout-btn" class="text-xs bg-gray-800 hover:bg-red-900 text-gray-300 hover:text-white px-3 py-1.5 rounded transition">
-            تسجيل الخروج <i class="fa-solid fa-right-from-bracket mr-1"></i>
-        </button>
+        
+        <!-- أزرار الخروج والتحكم -->
+        <div class="flex items-center gap-3">
+            <!-- زر العودة للمتجر -->
+            <a href="cases.html" class="text-xs bg-blue-950/60 hover:bg-blue-900 border border-blue-900 text-blue-400 hover:text-white px-4 py-2 rounded-lg transition font-bold">
+                <i class="fa-solid fa-arrow-right-to-bracket ml-1"></i> العودة للمتجر
+            </a>
+            <!-- زر تسجيل الخروج وتأمين الصفحة -->
+            <button id="logout-btn" class="text-xs bg-gray-800 hover:bg-red-950 border border-gray-700 hover:border-red-900 text-gray-300 hover:text-white px-4 py-2 rounded-lg transition font-bold">
+                تسجيل الخروج <i class="fa-solid fa-right-from-bracket mr-1"></i>
+            </button>
+        </div>
     </header>
 
     <main class="max-w-2xl mx-auto px-6 py-10 w-full flex-grow">
@@ -61,14 +72,18 @@
         </div>
     </main>
 
+    <footer class="bg-[#0b0d10] border-t border-gray-900 text-center py-6 text-xs text-gray-500">
+        <p>© 2026 متجر أنت المحقق. جميع الحقوق محفوظة لغرفة العمليات.</p>
+    </footer>
+
     <script>
-        // تسجيل الخروج
+        // كود تشغيل زر تسجيل الخروج وتدمير الجلسة الأمنية
         document.getElementById('logout-btn').addEventListener('click', function() {
             localStorage.removeItem('isAdmin');
             window.location.href = 'login.html';
         });
 
-        // إضافة قضية
+        // كود إضافة قضية جديدة وحفظها في ذاكرة المتصفح
         document.getElementById('add-case-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -77,7 +92,6 @@
             const price = document.getElementById('case-price').value;
             const difficulty = document.getElementById('case-difficulty').value;
 
-            // بناء كائن القضية الجديدة
             const newCase = {
                 title: "قضية: " + title,
                 desc: desc,
@@ -85,11 +99,8 @@
                 difficulty: difficulty
             };
 
-            // جلب القضايا المضافة سابقاً أو إنشاء مصفوفة فارغة
             let customCases = JSON.parse(localStorage.getItem('customCases')) || [];
             customCases.push(newCase);
-
-            // حفظ التحديثات في ذاكرة المتصفح
             localStorage.setItem('customCases', JSON.stringify(customCases));
 
             alert('تمت إضافة القضية بنجاح ونشرها في الأرشيف!');
