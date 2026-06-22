@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أرشيف القضايا المفتوحة | أنت المحقق</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style> body { font-family: 'Tajawal', sans-serif; background-color: #0f1115; } </style>
+</head>
+<body class="text-gray-100 bg-[#0f1115] min-h-screen flex flex-col justify-between">
+
+    <header class="border-b border-red-900/40 bg-[#141822]/90 backdrop-blur sticky top-0 z-50 px-6 py-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-reverse space-x-3">
+                <i class="fa-solid fa-user-secret text-red-600 text-2xl"></i>
+                <span class="text-xl font-black text-white">أنت <span class="text-red-600">المحقق</span></span>
+            </div>
+            <nav class="hidden md:flex space-x-reverse space-x-6 text-sm font-medium text-gray-400">
+                <a href="index.html" class="hover:text-red-500 transition">الرئيسية</a>
+                <a href="protocol.html" class="hover:text-red-500 transition">بروتوكول الشراء</a>
+                <a href="cases.html" class="text-red-500 font-bold border-b-2 border-red-600 pb-1">القضايا المفتوحة</a>
+            </nav>
+            <a href="login.html" class="text-xs text-gray-500 hover:text-red-400 border border-gray-800 px-3 py-1 rounded"><i class="fa-solid fa-lock-open ml-1"></i> دخول الإدارة</a>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-12 w-full flex-grow">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
+            <div>
+                <h2 class="text-3xl font-black text-white mb-1"><i class="fa-solid fa-folder-open text-red-600 ml-2"></i> أرشيف الجرائم والملفات السريّة</h2>
+                <p class="text-gray-400 text-sm">استخدم أدوات التصفية بالجانب لفرز الملفات والبحث في السجلات الجنائية.</p>
+            </div>
+            <div class="w-full md:w-72 relative">
+                <input type="text" id="search-input" placeholder="ابحث باسم القضية..." class="w-full bg-[#141822] border border-gray-800 rounded-lg px-4 py-2.5 text-xs text-white focus:outline-none focus:border-red-600 pr-10">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-gray-500 text-xs"></i>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap gap-2 mb-8 border-b border-gray-900 pb-4">
+            <button class="filter-btn bg-red-700 text-white text-xs font-bold px-4 py-2 rounded-md transition" data-filter="all">كل القضايا المتاحة</button>
+            <button class="filter-btn bg-[#141822] text-gray-400 hover:text-white text-xs font-bold px-4 py-2 rounded-md transition border border-gray-800" data-filter="easy">قضايا للمبتدئين</button>
+            <button class="filter-btn bg-[#141822] text-gray-400 hover:text-white text-xs font-bold px-4 py-2 rounded-md transition border border-gray-800" data-filter="hard">قضايا غامضة ومعقدة</button>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="cases-grid"></div>
+    </main>
+
+    <footer class="bg-[#0b0d10] border-t border-gray-900 text-center py-6 text-xs text-gray-500">
+        <p>© 2026 متجر أنت المحقق. جميع الحقوق محفوظة لغرفة العمليات.</p>
+    </footer>
+
+    <script>
+        // رقم الواتساب الخاص بك الموحد
+        const MY_WHATSAPP = "YOUR_NUMBER"; 
+
+        // 1. القضايا الافتراضية الأساسية للموقع
+        const defaultCases = [
+            {
+                title: "قضية: قبو البروفيسور هارون",
+                desc: "انهيار غامض داخل نفق محصن وغرفة مغلقة تماماً، الضحية بروفيسور بارز.. الأدلة متناقضة فهل كان الحادث مدبراً؟",
+                price: "49",
+                difficulty: "hard",
+                icon: "fa-vault",
+                badge: "سري للغاية",
+                badgeColor: "bg-red-900/60 text-red-400 border-red-900"
+            },
+            {
+                title: "قضية: قطار منتصف الليل",
+                desc: "اختفاء مفاجئ لأحد الركاب في مقصورة مغلقة أثناء تحرك القطار السريع بين المحطات دون وجود أي أثر مادي للمغادرة.",
+                price: "59",
+                difficulty: "hard",
+                icon: "fa-clock",
+                badge: "مستوى: معقد جداً",
+                badgeColor: "bg-red-900/60 text-red-400 border-red-900"
+            },
+            {
+                title: "قضية: قناع المهرج الزائف",
+                desc: "جريمة سرقة كبرى في متحف الفنون حدثت تحت أنظار الحراس وكاميرات المراقبة الرقمية المشفرة بطرق ذكية ومحيرة.",
+                price: "45",
+                difficulty: "easy",
+                icon: "fa-masks-theater",
+                badge: "مستوى: متوسط / سهل",
+                badgeColor: "bg-green-950/60 text-green-400 border-green-900"
+            }
+        ];
+
+        // 2. جلب القضايا المضافة من صفحة الإدارة ودمجها مع الافتراضية
+        const customCases = JSON.parse(localStorage.getItem('customCases')) || [];
+        
+        // تجهيز القضايا المضافة لتأخذ نفس مظهر الاستايل
+        const formattedCustomCases = customCases.map(c => ({
+            title: c.title,
+            desc: c.desc,
+            price: c.price,
+            difficulty: c.difficulty,
+            icon: "fa-file-shield", // أيقونة للملفات المضافة جديداً
+            badge: c.difficulty === 'hard' ? "مستوى: معقد" : "مستوى: سهل",
+            badgeColor: c.difficulty === 'hard' ? "bg-red-900/60 text-red-400 border-red-900" : "bg-green-950/60 text-green-400 border-green-900"
+        }));
+
+        const allCases = [...defaultCases, ...formattedCustomCases];
+
+        // 3. دالة رندرة وطباعة الكروت داخل الصفحة
+        const grid = document.getElementById('cases-grid');
+        
+        allCases.forEach(item => {
+            const card = document.createElement('div');
+            card.className = `case-card bg-[#141822] border border-gray-800 rounded-xl overflow-hidden flex flex-col justify-between hover:border-red-950 transition`;
+            card.setAttribute('data-difficulty', item.difficulty);
+            
+            card.innerHTML = `
+                <div class="relative bg-gray-900 h-48 flex items-center justify-center border-b border-gray-800">
+                    <i class="fa-solid ${item.icon} text-gray-700 text-6xl"></i>
+                    <span class="absolute top-3 right-3 text-[10px] font-bold px-2 py-1 rounded border ${item.badgeColor}">${item.badge}</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="case-title text-lg font-bold text-white mb-2">${item.title}</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed mb-4">${item.desc}</p>
+                    <div class="text-red-500 font-black text-lg mb-4">${item.price} ر.س</div>
+                    <a href="https://wa.me/${MY_WHATSAPP}?text=مرحباً غرفة العمليات، أود طلب ملف (${item.title})." target="_blank" class="w-full bg-[#25D366] hover:bg-[#20ba56] text-slate-900 font-bold py-3 px-4 rounded-lg text-sm flex items-center justify-center space-x-reverse space-x-2 transition">
+                        <i class="fa-brands fa-whatsapp text-lg"></i><span>استلم ملف القضية</span>
+                    </a>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        // 4. محرك البحث والفلترة الذكي (يعمل الآن على كل القضايا بما فيها المضافة)
+        const searchInput = document.getElementById('search-input');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const caseCards = document.querySelectorAll('.case-card');
+
+        function filterCases() {
+            const searchText = searchInput.value.toLowerCase();
+            const activeFilter = document.querySelector('.filter-btn.bg-red-700').getAttribute('data-filter');
+
+            caseCards.forEach(card => {
+                const title = card.querySelector('.case-title').innerText.toLowerCase();
+                const difficulty = card.getAttribute('data-difficulty');
+                
+                const matchesSearch = title.includes(searchText);
+                const matchesFilter = (activeFilter === 'all' || difficulty === activeFilter);
+
+                if (matchesSearch && matchesFilter) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        searchInput.addEventListener('input', filterCases);
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                filterBtns.forEach(b => b.className = "filter-btn bg-[#141822] text-gray-400 hover:text-white text-xs font-bold px-4 py-2 rounded-md transition border border-gray-800");
+                e.target.className = "filter-btn bg-red-700 text-white text-xs font-bold px-4 py-2 rounded-md transition";
+                filterCases();
+            });
+        });
+    </script>
+</body>
+</html>

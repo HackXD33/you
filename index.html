@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر أنت المحقق | الرئيسية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background-color: #0f1115; scroll-behavior: smooth; }
+        .crime-bg { background-image: radial-gradient(#1e222b 1px, transparent 1px); background-size: 20px 20px; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f1115; }
+        ::-webkit-scrollbar-thumb { background: #7f1d1d; border-radius: 4px; }
+    </style>
+</head>
+<body class="text-gray-100 crime-bg min-h-screen flex flex-col justify-between">
+
+    <!-- شريط التنقل المتجاوب -->
+    <header class="border-b border-red-900/40 bg-[#141822]/90 backdrop-blur sticky top-0 z-50 px-6 py-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-reverse space-x-3">
+                <i class="fa-solid fa-user-secret text-red-600 text-2xl animate-pulse"></i>
+                <span class="text-xl font-black text-white">أنت <span class="text-red-600">المحقق</span></span>
+            </div>
+            <!-- قائمة الشاشات الكبيرة -->
+            <nav class="hidden md:flex space-x-reverse space-x-6 text-sm font-medium text-gray-400">
+                <a href="index.html" class="text-red-500 font-bold border-b-2 border-red-600 pb-1">الرئيسية</a>
+                <a href="protocol.html" class="hover:text-red-500 transition">بروتوكول الشراء</a>
+                <a href="cases.html" class="hover:text-red-500 transition">القضايا المفتوحة</a>
+            </nav>
+            <div class="hidden md:block">
+                <a href="cases.html" class="bg-red-700 hover:bg-red-600 text-white text-xs px-4 py-2 rounded font-bold transition">دخول الأرشيف</a>
+            </div>
+            <!-- زر الموبايل -->
+            <button id="menu-btn" class="md:hidden text-gray-400 hover:text-white focus:outline-none">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+        <!-- قائمة الموبايل المنسدلة -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4 bg-[#1a1f2c] rounded-lg p-4 border border-gray-800 space-y-3">
+            <a href="index.html" class="block text-red-500 font-bold">الرئيسية</a>
+            <a href="protocol.html" class="block text-gray-300 hover:text-red-500">بروتوكول الشراء</a>
+            <a href="cases.html" class="block text-gray-300 hover:text-red-500">القضايا المفتوحة</a>
+            <a href="cases.html" class="block bg-red-700 text-center text-white text-xs py-2 rounded font-bold">دخول الأرشيف</a>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="max-w-5xl mx-auto text-center px-6 py-20 my-auto">
+        <div class="inline-block border border-red-900/60 bg-red-950/20 text-red-400 text-xs px-4 py-1.5 rounded-full font-bold mb-6">
+            ⚠️ تحديث نظام المباحث 2026: تم تفعيل التشفير الفوري للبيانات
+        </div>
+        <h1 class="text-4xl md:text-6xl font-black text-white leading-tight mb-6">
+            الأدلة مبعثرة، الجناة طلقاء، <br><span class="text-red-600">والحل بين يديك!</span>
+        </h1>
+        <p class="text-gray-400 text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+            مرحباً بك في منصة "أنت المحقق". هنا لا نبيع ألعاباً تسلية تقليدية، بل نسلمك ملفات قضايا جنائية غامضة ومدروسة بعناية.. هل تمتلك الشجاعة والذكاء لفك خيوط الجريمة؟
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <a href="cases.html" class="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white font-bold px-8 py-4 rounded-lg transition text-center shadow-lg shadow-red-900/40">
+                تصفح القضايا النشطة <i class="fa-solid fa-folder-open mr-2"></i>
+            </a>
+            <a href="protocol.html" class="w-full sm:w-auto bg-[#1a1f2c] border border-gray-700 hover:border-gray-500 text-gray-300 font-bold px-8 py-4 rounded-lg transition text-center">
+                كيف أستلم القضية؟
+            </a>
+        </div>
+    </main>
+
+    <!-- 🤖 واجهة بوت دردشة جيميناي التفاعلي (مساعد ذكي عائم) -->
+    <div class="fixed bottom-6 left-6 z-50">
+        <!-- زر فتح الشات -->
+        <button id="chat-toggle" class="bg-red-700 hover:bg-red-600 text-white p-4 rounded-full shadow-xl flex items-center justify-center transition-all transform hover:scale-110">
+            <i class="fa-solid fa-comment-medical text-xl"></i>
+        </button>
+        <!-- صندوق المحادثة المفتوح -->
+        <div id="chat-box" class="hidden fixed bottom-24 left-6 w-80 sm:w-96 bg-[#141822] border border-red-900/60 rounded-xl shadow-2xl flex flex-col overflow-hidden">
+            <div class="bg-red-950/40 p-4 border-b border-red-900/40 flex justify-between items-center">
+                <div class="flex items-center space-x-reverse space-x-2">
+                    <i class="fa-solid fa-robot text-red-500"></i>
+                    <span class="font-bold text-sm text-white">المساعد الجنائي الذكي (Gemini)</span>
+                </div>
+                <button id="chat-close" class="text-gray-400 hover:text-white text-xs"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <!-- منطقة الرسائل -->
+            <div class="p-4 h-64 overflow-y-auto space-y-3 text-xs flex flex-col" id="chat-messages">
+                <div class="bg-gray-800 text-gray-300 p-2.5 rounded-lg max-w-[85%] self-start">
+                    مرحباً أيها المحقق. أنا مساعدك الرقمي المدعوم بالذكاء الاصطناعي. هل تحتاج إلى تلميحات حول أي قضية، أم تريدني أن أشرح لك كيفية البدء؟
+                </div>
+            </div>
+            <!-- مدخل الرسائل -->
+            <div class="p-3 bg-[#0f1115] border-t border-gray-800 flex items-center gap-2">
+                <input type="text" id="chat-input" placeholder="اكتب سؤالك السري هنا..." class="w-full bg-[#1a1f2c] border border-gray-700 rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-red-600">
+                <button id="chat-send" class="bg-red-700 hover:bg-red-600 text-white px-3 py-2 rounded text-xs"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-[#0b0d10] border-t border-gray-900 text-center py-6 text-xs text-gray-500">
+        <p>© 2026 متجر أنت المحقق. جميع الحقوق محفوظة لغرفة العمليات.</p>
+    </footer>
+
+    <!-- سكربت التحكم بالقوائم والشات -->
+    <script>
+        // قائمة الموبايل
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+        // صندوق شات الذكاء الاصطناعي
+        const chatToggle = document.getElementById('chat-toggle');
+        const chatBox = document.getElementById('chat-box');
+        const chatClose = document.getElementById('chat-close');
+        const chatSend = document.getElementById('chat-send');
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.getElementById('chat-messages');
+
+        chatToggle.addEventListener('click', () => chatBox.classList.toggle('hidden'));
+        chatClose.addEventListener('click', () => chatBox.classList.add('hidden'));
+
+        chatSend.addEventListener('click', () => {
+            if(!chatInput.value.trim()) return;
+            // إضافة رسالة المستخدم للواجهة
+            const userDiv = document.createElement('div');
+            userDiv.className = "bg-red-900/40 text-white p-2.5 rounded-lg max-w-[85%] self-end text-left";
+            userDiv.innerText = chatInput.value;
+            chatMessages.appendChild(userDiv);
+            
+            // رد آلي مؤقت (هنا يمكنك لاحقاً ربط كود الـ Gemini API الفعلي)
+            setTimeout(() => {
+                const botDiv = document.createElement('div');
+                botDiv.className = "bg-gray-800 text-gray-300 p-2.5 rounded-lg max-w-[85%] self-start";
+                botDiv.innerText = "جاري فحص قاعدة البيانات الجنائية... (عند ربط الـ Gemini API بمفتاحك الخاص، سأرد عليك بدقة واحترافية كاملة من خوادم جوجل!).";
+                chatMessages.appendChild(botDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 800);
+
+            chatInput.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        });
+    </script>
+</body>
+</html>

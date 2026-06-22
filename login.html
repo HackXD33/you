@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول | غرفة العمليات</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style> body { font-family: 'Tajawal', sans-serif; background-color: #0f1115; } </style>
+</head>
+<body class="text-gray-100 min-h-screen flex items-center justify-center px-4">
+
+    <div class="bg-[#141822] border border-red-900/40 p-8 rounded-xl shadow-2xl w-full max-w-md">
+        <div class="text-center mb-8">
+            <i class="fa-solid fa-lock text-red-600 text-4xl mb-3 animate-pulse"></i>
+            <h2 class="text-2xl font-black text-white">نظام التحقق من الهوية</h2>
+            <p class="text-gray-400 text-xs mt-1">منطقة محظورة - للمصرح لهم فقط</p>
+        </div>
+
+        <form id="login-form" class="space-y-5">
+            <div>
+                <label class="block text-xs text-gray-400 mb-2 font-bold">اسم المستخدم</label>
+                <input type="text" id="username" required placeholder="ادخل اسم المستخدم" class="w-full bg-[#1a1f2c] border border-gray-700 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-red-600">
+            </div>
+            <div>
+                <label class="block text-xs text-gray-400 mb-2 font-bold">كلمة المرور السرية</label>
+                <input type="password" id="password" required placeholder="••••••••" class="w-full bg-[#1a1f2c] border border-gray-700 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-red-600">
+            </div>
+            <div id="error-msg" class="text-red-500 text-xs font-bold hidden text-center">⚠️ البيانات المدخلة غير صحيحة!</div>
+            
+            <button type="submit" class="w-full bg-red-700 hover:bg-red-600 text-white font-bold py-3 rounded-lg text-sm transition">
+                تحقق وافتح لوحة التحكم
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            const errorMsg = document.getElementById('error-msg');
+
+            // يمكنك تغيير اسم المستخدم وكلمة المرور من هنا
+            if (user === 'admin' && pass === '1234') {
+                localStorage.setItem('isAdmin', 'true'); // حفظ حالة الدخول
+                window.location.href = 'admin.html'; // التوجيه لصفحة الإدارة
+            } else {
+                errorMsg.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
